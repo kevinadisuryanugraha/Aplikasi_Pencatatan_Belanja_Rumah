@@ -2,19 +2,13 @@
 session_start();
 require_once 'functions.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: index.php");
-    exit();
-}
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $barang = $_POST['barang'];
     $jumlah = $_POST['jumlah'];
     $harga = $_POST['harga'];
     $tanggal = $_POST['tanggal'];
-    $user_id = $_SESSION['user_id'];
 
-    add_belanja($barang, $jumlah, $harga, $tanggal, $user_id);
+    add_belanja($barang, $jumlah, $harga, $tanggal);
     header("Location: halaman_utama.php");
     exit();
 }

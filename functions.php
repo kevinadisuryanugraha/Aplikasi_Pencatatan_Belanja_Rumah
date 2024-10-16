@@ -1,44 +1,18 @@
 <?php
 require_once 'db.php';
 
-function check_user($name, $email)
+function add_belanja($barang, $jumlah, $harga, $tanggal)
 {
     $db = connect_db();
 
-    $query = "SELECT * FROM users WHERE name = '$name'";
-    $result = $db->query($query);
-    $user = $result->fetchArray(SQLITE3_ASSOC);
-
-    if ($user) {
-        return $user['email'] === $email ? $user : false;
-    }
-    return null;
-}
-
-function add_user($name, $email)
-{
-    $db = connect_db();
-
-    if (check_user($name, $email)) {
-        return true;
-    }
-
-    $query = "INSERT INTO users (name, email) VALUES ('$name', '$email')";
+    $query = "INSERT INTO belanja (barang, jumlah, harga, tanggal) VALUES ('$barang', $jumlah, $harga, '$tanggal')";
     return $db->exec($query);
 }
 
-function add_belanja($barang, $jumlah, $harga, $tanggal, $user_id)
+function ambil_semua_belanja()
 {
     $db = connect_db();
-
-    $query = "INSERT INTO belanja (barang, jumlah, harga, tanggal, user_id) VALUES ('$barang', $jumlah, $harga, '$tanggal', $user_id)";
-    return $db->exec($query);
-}
-
-function ambil_belanja_by_user($user_id)
-{
-    $db = connect_db();
-    $query = "SELECT * FROM belanja WHERE user_id = $user_id order by tanggal DESC";
+    $query = "SELECT * FROM belanja ORDER BY tanggal DESC, harga DESC";
     $result = $db->query($query);
 
     $belanja = [];
@@ -48,25 +22,25 @@ function ambil_belanja_by_user($user_id)
     return $belanja;
 }
 
-function get_belanja_by_id_and_user($id, $user_id)
+function get_belanja_by_id($id)
 {
     $db = connect_db();
-    $query = "SELECT * FROM belanja WHERE id = $id AND user_id = $user_id";
+    $query = "SELECT * FROM belanja WHERE id = $id";
     $result = $db->query($query);
     return $result ? $result->fetchArray(SQLITE3_ASSOC) : false;
 }
 
-function update_belanja($id, $barang, $jumlah, $harga, $tanggal, $user_id)
+function update_belanja($id, $barang, $jumlah, $harga, $tanggal)
 {
     $db = connect_db();
 
-    $query = "UPDATE belanja SET barang = '$barang', jumlah = $jumlah, harga = $harga, tanggal = '$tanggal' WHERE id = $id AND user_id = $user_id";
+    $query = "UPDATE belanja SET barang = '$barang', jumlah = $jumlah, harga = $harga, tanggal = '$tanggal' WHERE id = $id";
     return $db->exec($query);
 }
 
-function delete_belanja($id, $user_id)
+function delete_belanja($id)
 {
     $db = connect_db();
-    $query = "DELETE FROM belanja WHERE id = $id AND user_id = $user_id";
+    $query = "DELETE FROM belanja WHERE id = $id";
     return $db->exec($query);
 }

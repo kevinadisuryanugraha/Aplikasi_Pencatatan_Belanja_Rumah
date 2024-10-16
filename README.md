@@ -20,12 +20,6 @@ Proyek ini dibangun menggunakan teknologi-teknologi berikut:
 
 ## 💻 Dokumentasi
 
-Ini adalah halaman ketika pengguna masuk pertama kali ke aplikasi ini, di mana pengguna akan diarahkan untuk memasukkan nama lengkap dan juga email.
-
-![Logo Proyek](image_readme/index.png)
-
---------------------------------------------------------
-
 Ini adalah halaman Utama, di mana pengguna bisa melihat semua catatan belanja yang telah ditambahkan dan mengelola belanjaan mereka sendiri.
 
 ![Logo Proyek](image_readme/halaman_utama.png)

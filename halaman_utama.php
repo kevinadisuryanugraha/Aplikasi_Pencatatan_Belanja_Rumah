@@ -2,14 +2,7 @@
 session_start();
 require_once 'functions.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: index.php"); 
-    exit();
-}
-
-$user_id = $_SESSION['user_id'];
-$user_name = $_SESSION['name']; 
-$belanja_list = ambil_belanja_by_user($user_id);
+$belanja_list = ambil_semua_belanja();
 ?>
 
 <!DOCTYPE html>
@@ -122,9 +115,7 @@ $belanja_list = ambil_belanja_by_user($user_id);
     <div class="container">
         <h2>Pencatatan Belanja Rumah</h2>
         <div style="text-align: right;">
-            <span>Selamat Datang <?php echo htmlspecialchars($user_name); ?>!</span>
             <a href="tambah_catatan.php">Tambah Belanja</a>
-            <a href="logout.php">Logout</a>
         </div>
 
         <table>
